@@ -1,3 +1,5 @@
+import * as actionTypes from "../store/actions";
+
 let initialState = {
   counter: 0,
   result: [],
@@ -6,19 +8,19 @@ let initialState = {
 const reducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
-    case "INCREMENT":
+    case actionTypes.INCREMENT:
       newState.counter = state.counter + 1;
       break;
-    case "SUBTRACT":
+    case actionTypes.SUBTRACT:
       newState.counter = state.counter - action.val;
       break;
-    case "DECREMENT":
+    case actionTypes.DECREMENT:
       newState.counter = state.counter - 1;
       break;
-    case "ADD":
+    case actionTypes.ADD:
       newState.counter = state.counter + action.val;
       break;
-    case "STORE_RESULT":
+    case actionTypes.STORE_RESULT:
       // push is not a good idea because it will just refer to the old array
       // concat returns a new array with the concatenated value
       newState.result = state.result.concat({
@@ -26,7 +28,7 @@ const reducer = (state = initialState, action) => {
         val: state.counter,
       });
       break;
-    case "DELETE_RESULT":
+    case actionTypes.DELETE_RESULT:
       let id = action.deleteId;
       let newResultArr = state.result.filter((newResult) => {
         if (newResult.id === id) {

@@ -7,6 +7,7 @@ import CounterOutput from "../../components/CounterOutput/CounterOutput";
 class Counter extends Component {
   state = {
     counter: 0,
+    result: [],
   };
 
   counterChangedHandler = (action, value) => {
@@ -51,6 +52,17 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={this.props.onSubtractCounter}
         />
+        <hr />
+        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <ul>
+          {this.props.strResult.map((value, index) => {
+            return (
+              <li onClick={this.props.onDeleteResult} key={index}>
+                {value.val}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
@@ -59,6 +71,7 @@ class Counter extends Component {
 const mapStateToProps = (state) => {
   return {
     ctr: state.counter,
+    strResult: state.result,
   };
 };
 
@@ -71,6 +84,8 @@ const mapDispatchToProps = (dispatch) => {
     onDecrementCounter: () => dispatch({ type: "DECREMENT" }),
     onAddCounter: () => dispatch({ type: "ADD", val: 5 }),
     onSubtractCounter: () => dispatch({ type: "SUBTRACT", val: 5 }),
+    onStoreResult: () => dispatch({ type: "STORE_RESULT" }),
+    onDeleteResult: () => dispatch({ type: "DELETE_RESULT" }),
   };
 };
 

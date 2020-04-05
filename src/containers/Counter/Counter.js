@@ -11,31 +11,6 @@ class Counter extends Component {
     result: [],
   };
 
-  counterChangedHandler = (action, value) => {
-    switch (action) {
-      case "inc":
-        this.setState((prevState) => {
-          return { counter: prevState.counter + 1 };
-        });
-        break;
-      case "dec":
-        this.setState((prevState) => {
-          return { counter: prevState.counter - 1 };
-        });
-        break;
-      case "add":
-        this.setState((prevState) => {
-          return { counter: prevState.counter + value };
-        });
-        break;
-      case "sub":
-        this.setState((prevState) => {
-          return { counter: prevState.counter - value };
-        });
-        break;
-    }
-  };
-
   render() {
     return (
       <div>
@@ -54,7 +29,9 @@ class Counter extends Component {
           clicked={this.props.onSubtractCounter}
         />
         <hr />
-        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <button onClick={() => this.props.onStoreResult(this.props.ctr)}>
+          Store Result
+        </button>
         <ul>
           {this.props.strResult.map((value, index) => {
             return (
@@ -74,8 +51,8 @@ class Counter extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ctr: state.counter,
-    strResult: state.result,
+    ctr: state.ctr.counter,
+    strResult: state.res.result,
   };
 };
 
@@ -88,7 +65,8 @@ const mapDispatchToProps = (dispatch) => {
     onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT }),
     onAddCounter: () => dispatch({ type: actionTypes.ADD, val: 5 }),
     onSubtractCounter: () => dispatch({ type: actionTypes.SUBTRACT, val: 5 }),
-    onStoreResult: () => dispatch({ type: actionTypes.STORE_RESULT }),
+    onStoreResult: (cntr) =>
+      dispatch({ type: actionTypes.STORE_RESULT, counter: cntr }),
     onDeleteResult: (id) =>
       dispatch({ type: actionTypes.DELETE_RESULT, deleteId: id }),
   };

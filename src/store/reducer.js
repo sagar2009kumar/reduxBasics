@@ -8,13 +8,13 @@ const reducer = (state = initialState, action) => {
     newState.counter = state.counter + 1;
   }
   if (action.type === "SUBTRACT") {
-    newState.counter = state.counter - 1;
+    newState.counter = state.counter - action.val;
   }
   if (action.type === "DECREMENT") {
     newState.counter = state.counter - 1;
   }
   if (action.type === "ADD") {
-    newState.counter = state.counter + 1;
+    newState.counter = state.counter + action.val;
   }
   return newState;
 };

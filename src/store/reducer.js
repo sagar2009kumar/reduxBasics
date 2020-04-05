@@ -22,12 +22,20 @@ const reducer = (state = initialState, action) => {
       // push is not a good idea because it will just refer to the old array
       // concat returns a new array with the concatenated value
       newState.result = state.result.concat({
-        id: new Date(),
+        id: Math.random(),
         val: state.counter,
       });
       break;
     case "DELETE_RESULT":
-      newState.counter = 1;
+      let id = action.deleteId;
+      let newResultArr = state.result.filter((newResult) => {
+        if (newResult.id === id) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      newState.result = newResultArr;
       break;
     default:
       break;
